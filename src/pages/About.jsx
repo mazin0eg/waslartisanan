@@ -6,6 +6,29 @@ import { visuals } from '../data/visuals.js'
 
 function About() {
   const { t } = useTranslation()
+  const gallery = [
+    {
+      src: visuals.aboutWorkshop || visuals.workshop,
+      alt: t('about.craftTitle'),
+      caption: t('about.craftLabel'),
+    },
+    {
+      src: visuals.aboutHands || visuals.textile,
+      alt: t('about.cards.visibility'),
+      caption: t('about.cards.visibility'),
+    },
+    {
+      src: visuals.aboutDetail || visuals.pottery,
+      alt: t('about.cards.income'),
+      caption: t('about.cards.income'),
+    },
+    {
+      src: visuals.aboutArtisan || visuals.leather,
+      alt: t('about.cards.reach'),
+      caption: t('about.cards.reach'),
+    },
+  ]
+
   return (
     <PageTransition className="space-y-12">
       <SectionHeading
@@ -39,32 +62,16 @@ function About() {
           viewport={{ once: true, amount: 0.3 }}
           className="grid gap-4"
         >
-          <div className="surface overflow-hidden rounded-[36px]">
+          <figure className="surface overflow-hidden rounded-[36px]">
             <img
-              src={visuals.pottery}
-              alt="Handmade artisan object"
-              className="h-64 w-full object-cover"
+              src="/Artisanal-Work--1030x687.jpg"
+              alt={gallery[0].alt}
+              className="aspect-[4/3] w-full object-cover"
               loading="lazy"
             />
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="surface overflow-hidden rounded-[32px]">
-              <img
-                src={visuals.textile}
-                alt="Textile craft"
-                className="h-40 w-full object-cover"
-                loading="lazy"
-              />
-            </div>
-            <div className="surface overflow-hidden rounded-[32px]">
-              <img
-                src={visuals.leather}
-                alt="Leather craft"
-                className="h-40 w-full object-cover"
-                loading="lazy"
-              />
-            </div>
-          </div>
+            
+          </figure>
+          
         </motion.div>
       </section>
 

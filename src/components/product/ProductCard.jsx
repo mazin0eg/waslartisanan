@@ -22,7 +22,7 @@ function ProductCard({ product }) {
         <img
           src={resolveImageUrl(product.image)}
           alt={product.title}
-          className="h-48 w-full object-cover transition duration-500 group-hover:scale-105"
+          className="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-105"
           loading="lazy"
         />
         <span className="absolute left-4 top-4 rounded-full bg-cream/90 px-3 py-1 text-xs uppercase tracking-[0.3em] text-cedar">

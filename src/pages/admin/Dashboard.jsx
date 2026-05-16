@@ -40,7 +40,7 @@ function Dashboard() {
 
   return (
     <PageTransition className="space-y-10">
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {[
           { label: t('admin.dashboard.products'), value: stats.products },
           { label: t('admin.dashboard.orders'), value: stats.orders },

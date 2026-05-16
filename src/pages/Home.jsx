@@ -23,14 +23,14 @@ function Home() {
 
   return (
     <PageTransition className="space-y-20">
-      <section className="relative overflow-hidden rounded-[40px] bg-hero-sun px-6 py-16 shadow-soft md:px-12">
+      <section className="relative overflow-hidden rounded-[40px] bg-hero-sun px-6 py-12 shadow-soft md:px-12 md:py-16">
         <div className="relative z-10 grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="space-y-6">
             <span className="pill">{t('home.heroLabel')}</span>
-            <h1 className="text-4xl font-display text-ink md:text-5xl">
+            <h1 className="text-3xl font-display text-ink sm:text-4xl md:text-5xl">
               {t('home.heroTitle')}
             </h1>
-            <p className="max-w-xl text-sm text-cedar/70">
+            <p className="max-w-xl text-sm text-cedar/70 md:text-base">
               {t('home.heroDescription')}
             </p>
             <div className="flex flex-wrap gap-4">
@@ -50,9 +50,9 @@ function Home() {
               className="overflow-hidden rounded-[32px] border border-sand/40 bg-white/80 shadow-card"
             >
               <img
-                src={visuals.hero}
+                src="/The_Impact_of_Your_Purchase_Supporting_Moroccan_Artisans_and_Their_Communities-1024x572.jpg"
                 alt="Artisan workshop"
-                className="h-64 w-full object-cover md:h-72"
+                className="aspect-[4/3] w-full object-cover md:aspect-[5/4]"
                 loading="lazy"
               />
             </motion.div>
@@ -108,9 +108,9 @@ function Home() {
           className="surface overflow-hidden rounded-[36px]"
         >
           <img
-            src={visuals.workshop}
+            src="/MAPPH_20190301_0015_MAP_map.webp"
             alt="Artisan workshop"
-            className="h-56 w-full object-cover"
+            className="aspect-[4/3] w-full object-cover md:aspect-[5/4]"
             loading="lazy"
           />
           <div className="p-8">

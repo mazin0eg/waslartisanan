@@ -64,8 +64,9 @@ function Checkout() {
         city: form.city,
         notes: form.notes,
         items,
+        products: items,
         total,
-        status: 'Processing',
+        status: 'pending',
         createdAt: new Date().toISOString(),
       })
 
@@ -92,6 +93,8 @@ function Checkout() {
               placeholder={t('checkout.fullName')}
               value={form.name}
               onChange={handleChange}
+              autoComplete="name"
+              minLength={2}
               required
             />
             <input
@@ -101,6 +104,7 @@ function Checkout() {
               placeholder={t('checkout.email')}
               value={form.email}
               onChange={handleChange}
+              autoComplete="email"
               required
             />
             <input
@@ -109,6 +113,9 @@ function Checkout() {
               placeholder={t('checkout.phone')}
               value={form.phone}
               onChange={handleChange}
+              autoComplete="tel"
+              inputMode="tel"
+              minLength={6}
               required
             />
             <input
@@ -117,6 +124,8 @@ function Checkout() {
               placeholder={t('checkout.address')}
               value={form.address}
               onChange={handleChange}
+              autoComplete="street-address"
+              minLength={4}
               required
             />
             <div className="grid gap-4 md:grid-cols-2">
@@ -126,6 +135,8 @@ function Checkout() {
                 placeholder={t('checkout.city')}
                 value={form.city}
                 onChange={handleChange}
+                autoComplete="address-level2"
+                minLength={2}
                 required
               />
             </div>

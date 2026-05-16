@@ -4,7 +4,9 @@ function SectionHeading({ label, title, description }) {
       {label ? <span className="pill">{label}</span> : null}
       <h2 className="text-3xl font-display text-ink md:text-4xl">{title}</h2>
       {description ? (
-        <p className="max-w-2xl text-sm text-cedar/70">{description}</p>
+        <p className="max-w-2xl text-sm text-cedar/70 md:text-base">
+          {description}
+        </p>
       ) : null}
     </div>
   )

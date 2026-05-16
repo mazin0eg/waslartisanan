@@ -9,3 +9,8 @@ export const createOrder = async (payload) => {
   const response = await apiClient.post('/orders', payload)
   return response.data
 }
+
+export const updateOrderStatus = async (id, status) => {
+  const response = await apiClient.patch(`/orders/${id}`, { status })
+  return response.data
+}

@@ -13,7 +13,7 @@ function CartItem({ item }) {
       <img
         src={resolveImageUrl(item.image)}
         alt={item.title}
-        className="h-24 w-24 rounded-2xl object-cover"
+        className="h-20 w-20 rounded-2xl object-cover sm:h-24 sm:w-24"
       />
       <div className="flex-1">
         <p className="text-lg font-display text-ink">{item.title}</p>

@@ -15,7 +15,9 @@ function AdminCustomers() {
         const data = await getUsers()
         setCustomers(data.filter((user) => user.role === 'customer'))
       } catch (err) {
-        console.error('Unable to load customers', err)
+        if (import.meta.env.DEV) {
+          console.error('Unable to load customers', err)
+        }
         setCustomers([])
       } finally {
         setLoading(false)
@@ -27,7 +29,9 @@ function AdminCustomers() {
 
   return (
     <PageTransition className="space-y-6">
-      <h2 className="text-2xl font-display text-ink">{t('admin.customers.title')}</h2>
+      <h2 className="text-xl font-display text-ink md:text-2xl">
+        {t('admin.customers.title')}
+      </h2>
       {loading ? (
         <p className="text-sm text-cedar/70">{t('admin.customers.loading')}</p>
       ) : customers.length ? (

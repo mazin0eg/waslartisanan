@@ -1,0 +1,39 @@
+version: '3.9'
+
+services:
+  backend:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
+    env_file: ./.env
+    environment:
+      API_PORT: 4000
+      NODE_ENV: production
+      DB_PATH: /app/data/db.json
+      DB_SEED_PATH: /app/server/db.json
+      UPLOAD_DIR: /app/public/uploads
+    volumes:
+      - db-data:/app/data
+      - uploads-data:/app/public/uploads
+    ports:
+      - "4000:4000"
+
+  frontend:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.frontend
+      args:
+        VITE_API_URL: ${VITE_API_URL}
+        VITE_UPLOAD_URL: ${VITE_UPLOAD_URL}
+        VITE_API_TIMEOUT: ${VITE_API_TIMEOUT}
+        VITE_UPLOAD_TIMEOUT: ${VITE_UPLOAD_TIMEOUT}
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+
+volumes:
+  db-data:
+  uploads-data:

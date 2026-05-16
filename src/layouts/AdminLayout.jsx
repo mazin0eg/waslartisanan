@@ -8,7 +8,7 @@ function AdminLayout() {
 
   return (
     <div className="min-h-screen bg-cream">
-      <div className="grid min-h-screen grid-cols-1 lg:grid-cols-[260px_1fr]">
+      <div className="grid min-h-screen grid-cols-1 overflow-x-hidden lg:grid-cols-[260px_1fr]">
         <AdminSidebar
           isOpen={sidebarOpen}
           onClose={() => setSidebarOpen(false)}

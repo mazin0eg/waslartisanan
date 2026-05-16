@@ -7,7 +7,7 @@ function ProductGrid({ products = [], loading }) {
   const { t } = useTranslation()
   if (loading) {
     return (
-      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {Array.from({ length: 6 }).map((_, index) => (
           <SkeletonCard key={`skeleton-${index}`} />
         ))}
@@ -25,7 +25,7 @@ function ProductGrid({ products = [], loading }) {
   }
 
   return (
-    <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {products.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}

@@ -6,7 +6,7 @@ function MainLayout() {
   return (
     <div className="page-shell flex min-h-screen flex-col">
       <Navbar />
-      <main className="section-padding flex-1 pt-10">
+      <main className="section-padding flex-1 pt-8 md:pt-10">
         <div className="mx-auto w-full max-w-6xl">
           <Outlet />
         </div>

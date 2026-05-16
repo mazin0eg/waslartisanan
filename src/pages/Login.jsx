@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
 import PageTransition from '../components/shared/PageTransition.jsx'
@@ -11,7 +11,6 @@ function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
-  const setCustomer = useAuthStore((state) => state.setCustomer)
   const setAdmin = useAuthStore((state) => state.setAdmin)
   const navigate = useNavigate()
 
@@ -24,31 +23,34 @@ function Login() {
 
     setLoading(true)
     try {
+      if (import.meta.env.DEV) {
+        console.info('Attempting admin login', { email })
+      }
+
       const users = await getUsers()
+      if (import.meta.env.DEV) {
+        console.info('Users loaded', { count: users.length })
+      }
       const normalizedEmail = email.trim().toLowerCase()
-      const existing = users.find(
+      const adminUser = users.find(
         (user) =>
+          user.role === 'admin' &&
           user.email?.toLowerCase() === normalizedEmail &&
           user.password === password,
       )
 
-      if (!existing) {
-        toast.error('Invalid email or password')
+      if (!adminUser) {
+        toast.error('Invalid admin credentials')
         return
       }
 
-      if (existing.role === 'admin') {
-        setAdmin(existing)
-        toast.success('Welcome, admin')
-        navigate('/admin')
-        return
-      }
-
-      setCustomer(existing)
-      toast.success('Welcome back')
-      navigate('/')
+      setAdmin(adminUser)
+      toast.success('Welcome, admin')
+      navigate('/admin')
     } catch (err) {
-      console.error('Login failed', err)
+      if (import.meta.env.DEV) {
+        console.error('Login failed', err)
+      }
       toast.error('Unable to sign in. Please try again.')
     } finally {
       setLoading(false)
@@ -71,6 +73,7 @@ function Login() {
             placeholder={t('auth.email')}
             value={email}
             onChange={(event) => setEmail(event.target.value)}
+            autoComplete="email"
             required
           />
           <input
@@ -79,6 +82,8 @@ function Login() {
             placeholder={t('auth.password')}
             value={password}
             onChange={(event) => setPassword(event.target.value)}
+            autoComplete="current-password"
+            minLength={6}
             required
           />
           <button type="submit" className="primary-button" disabled={loading}>
@@ -86,10 +91,7 @@ function Login() {
           </button>
         </div>
         <p className="mt-6 text-sm text-cedar/70">
-          {t('auth.noAccount')}{' '}
-          <Link to="/register" className="text-ink underline">
-            {t('auth.createOne')}
-          </Link>
+          Admin access only.
         </p>
       </form>
     </PageTransition>

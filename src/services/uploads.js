@@ -1,8 +1,11 @@
 import axios from 'axios'
 
+const uploadBaseUrl = import.meta.env.VITE_UPLOAD_URL || 'http://localhost:3002'
+const uploadTimeout = Number(import.meta.env.VITE_UPLOAD_TIMEOUT) || 15000
+
 const uploadClient = axios.create({
-  baseURL: 'http://localhost:3002',
-  timeout: 15000,
+  baseURL: uploadBaseUrl,
+  timeout: uploadTimeout,
 })
 
 export const uploadImage = async (file) => {

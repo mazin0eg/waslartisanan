@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
 import PageTransition from '../../components/shared/PageTransition.jsx'
-import { getAdmins } from '../../services/admins.js'
+import { getUsers } from '../../services/users.js'
 import { useAuthStore } from '../../store/useAuthStore.js'
 
 function AdminLogin() {
@@ -35,24 +35,34 @@ function AdminLogin() {
 
     setLoading(true)
     try {
-      const admins = await getAdmins()
+      if (import.meta.env.DEV) {
+        console.info('Attempting admin login', { email })
+      }
+
+      const users = await getUsers()
+      if (import.meta.env.DEV) {
+        console.info('Users loaded', { count: users.length })
+      }
       const normalizedEmail = email.trim().toLowerCase()
-      const admin = admins.find(
-        (item) =>
-          item.email?.toLowerCase() === normalizedEmail &&
-          item.password === password,
+      const adminUser = users.find(
+        (user) =>
+          user.role === 'admin' &&
+          user.email?.toLowerCase() === normalizedEmail &&
+          user.password === password,
       )
 
-      if (!admin) {
+      if (!adminUser) {
         toast.error('Invalid admin credentials')
         return
       }
 
-      setAdmin(admin)
+      setAdmin(adminUser)
       toast.success('Welcome, admin')
       navigate('/admin')
     } catch (err) {
-      console.error('Admin login failed', err)
+      if (import.meta.env.DEV) {
+        console.error('Admin login failed', err)
+      }
       toast.error('Unable to sign in. Please try again.')
     } finally {
       setLoading(false)
@@ -76,6 +86,7 @@ function AdminLogin() {
             placeholder={t('auth.email')}
             value={email}
             onChange={(event) => setEmail(event.target.value)}
+            autoComplete="email"
             required
           />
           <input
@@ -84,6 +95,8 @@ function AdminLogin() {
             placeholder={t('auth.password')}
             value={password}
             onChange={(event) => setPassword(event.target.value)}
+            autoComplete="current-password"
+            minLength={6}
             required
           />
           <button type="submit" className="primary-button" disabled={loading}>

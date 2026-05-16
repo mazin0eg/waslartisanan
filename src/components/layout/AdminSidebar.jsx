@@ -26,29 +26,29 @@ function AdminSidebar({ isOpen, onClose = () => {} }) {
         />
       ) : null}
       <aside
-        className={`fixed left-0 top-0 z-50 h-full w-[260px] transform border-r border-sand/40 bg-white/90 p-8 shadow-soft transition duration-300 lg:static lg:translate-x-0 lg:shadow-none ${
+        className={`fixed left-0 top-0 z-50 h-full w-[280px] max-w-[82vw] transform overflow-y-auto border-r border-sand/40 bg-white/90 p-8 shadow-soft transition duration-300 lg:static lg:w-[260px] lg:translate-x-0 lg:shadow-none ${
           isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
-      <div className="mb-10">
-        <p className="text-lg font-display text-ink">WaslArtisan</p>
-        <p className="text-xs uppercase tracking-[0.3em] text-cedar/60">
-          {t('admin.sidebar.studio')}
-        </p>
-      </div>
-      <nav className="flex flex-col gap-3">
-        {adminLinks.map((item) => (
-          <NavLink
-            key={item.label}
-            to={item.to}
-            end={item.to === '/admin'}
-            className={linkClass}
-            onClick={onClose}
-          >
-            {item.label}
-          </NavLink>
-        ))}
-      </nav>
+        <div className="mb-10">
+          <p className="text-lg font-display text-ink">WaslArtisan</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-cedar/60">
+            {t('admin.sidebar.studio')}
+          </p>
+        </div>
+        <nav className="flex flex-col gap-3">
+          {adminLinks.map((item) => (
+            <NavLink
+              key={item.label}
+              to={item.to}
+              end={item.to === '/admin'}
+              className={linkClass}
+              onClick={onClose}
+            >
+              {item.label}
+            </NavLink>
+          ))}
+        </nav>
       </aside>
     </>
   )

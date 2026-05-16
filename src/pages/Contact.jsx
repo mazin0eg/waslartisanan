@@ -117,17 +117,24 @@ function Contact() {
               className="input-field"
               placeholder={t('contact.namePlaceholder')}
               type="text"
+              name="name"
+              autoComplete="name"
+              minLength={2}
               required
             />
             <input
               className="input-field"
               placeholder={t('contact.emailPlaceholder')}
               type="email"
+              name="email"
+              autoComplete="email"
               required
             />
             <textarea
               className="input-field min-h-[140px]"
               placeholder={t('contact.messagePlaceholder')}
+              name="message"
+              minLength={10}
               required
             />
             <button type="submit" className="primary-button">

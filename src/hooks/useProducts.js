@@ -13,7 +13,9 @@ export function useProducts() {
       setProducts(data)
       setError(null)
     } catch (err) {
-      console.error('Unable to load products', err)
+      if (import.meta.env.DEV) {
+        console.error('Unable to load products', err)
+      }
       setError('Unable to load products.')
     } finally {
       setLoading(false)

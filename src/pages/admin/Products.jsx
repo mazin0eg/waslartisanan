@@ -26,7 +26,9 @@ function AdminProducts() {
       setProducts(data)
       setError('')
     } catch (err) {
-      console.error('Unable to load products', err)
+      if (import.meta.env.DEV) {
+        console.error('Unable to load products', err)
+      }
       setProducts([])
       setError(t('admin.products.loadError'))
       toast.error(t('admin.products.loadError'))
@@ -45,7 +47,9 @@ function AdminProducts() {
       toast.success('Product removed')
       load()
     } catch (err) {
-      console.error('Unable to delete product', err)
+      if (import.meta.env.DEV) {
+        console.error('Unable to delete product', err)
+      }
       toast.error('Unable to delete product')
     }
   }

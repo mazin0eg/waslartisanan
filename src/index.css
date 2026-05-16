@@ -39,7 +39,7 @@
   }
 
   .section-padding {
-    @apply px-5 md:px-10 lg:px-16;
+    @apply px-4 sm:px-6 md:px-10 lg:px-16;
   }
 
   .surface {
@@ -55,10 +55,10 @@
   }
 
   .primary-button {
-    @apply inline-flex items-center justify-center rounded-full bg-ink px-6 py-3 text-sm font-medium uppercase tracking-[0.2em] text-cream shadow-card transition hover:-translate-y-0.5 hover:bg-night;
+    @apply inline-flex min-h-[44px] items-center justify-center rounded-full bg-ink px-6 py-3 text-sm font-medium uppercase tracking-[0.2em] text-cream shadow-card transition hover:-translate-y-0.5 hover:bg-night;
   }
 
   .ghost-button {
-    @apply inline-flex items-center justify-center rounded-full border border-ink/20 px-6 py-3 text-sm font-medium uppercase tracking-[0.2em] text-ink transition hover:border-ink/40 hover:bg-cream;
+    @apply inline-flex min-h-[44px] items-center justify-center rounded-full border border-ink/20 px-6 py-3 text-sm font-medium uppercase tracking-[0.2em] text-ink transition hover:border-ink/40 hover:bg-cream;
   }
 }

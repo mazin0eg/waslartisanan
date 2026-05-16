@@ -24,24 +24,26 @@ function Navbar() {
 
   return (
     <header className="section-padding sticky top-0 z-40 bg-linen/80 backdrop-blur-md">
-      <div className="flex flex-wrap items-center justify-between gap-6 border-b border-sand/40 py-5">
-        <Link to="/" className="flex items-center gap-4">
-          <div className="flex items-center gap-4 rounded-full border border-sand/40 bg-white/80 px-4 py-2.5 shadow-soft">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-sand/40 py-4 md:py-5">
+        <Link to="/" className="flex items-center gap-3">
+          <div className="flex items-center gap-3 rounded-full border border-sand/40 bg-white/80 px-3 py-2 shadow-soft sm:px-4">
             <img
-              src="public/Logo_UEMF_2016-removebg-preview.png"
+              src="/Logo_UEMF_2016-removebg-preview.png"
               alt="UEMF"
-              className="h-8 w-auto object-contain md:h-9"
+              className="h-7 w-auto object-contain sm:h-8 md:h-9"
             />
-            <span className="text-xs uppercase tracking-[0.3em] text-cedar/70">
+            <span className="text-[10px] uppercase tracking-[0.3em] text-cedar/70 sm:text-xs">
               x
             </span>
             <img
-              src="public/wasl_pise_logo-removebg-preview.png"
+              src="/wasl_pise_logo-removebg-preview.png"
               alt="Wasl group"
-              className="h-9 w-auto object-contain md:h-10"
+              className="h-8 w-auto object-contain sm:h-9 md:h-10"
             />
           </div>
-          <span className="text-lg font-display text-ink">WaslArtisan</span>
+          <span className="text-base font-display text-ink sm:text-lg">
+            WaslArtisan
+          </span>
         </Link>
         <nav className="hidden items-center gap-8 lg:flex">
           {navLinks.map((item) => (
@@ -75,24 +77,50 @@ function Navbar() {
             </select>
           </div>
         </nav>
-        <div className="flex items-center gap-4 lg:hidden">
+        <div className="flex items-center gap-3 lg:hidden">
           <Link
             to="/cart"
-            className="rounded-full border border-sand/60 px-3 py-2 text-xs uppercase tracking-[0.3em]"
+            className="rounded-full border border-sand/60 px-3 py-2 text-[10px] uppercase tracking-[0.28em] sm:text-xs"
           >
             {t('nav.cart')} {cartCount}
           </Link>
           <button
             type="button"
-            className="rounded-full border border-sand/60 px-4 py-2 text-xs uppercase tracking-[0.3em]"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-sand/60"
             onClick={() => setOpen((prev) => !prev)}
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            aria-label={t('nav.menu')}
           >
-            {t('nav.menu')}
+            <span className="relative block h-4 w-5">
+              <span
+                className={`absolute left-0 top-0 h-0.5 w-5 bg-ink transition duration-300 ${
+                  open ? 'translate-y-2 rotate-45' : ''
+                }`}
+              />
+              <span
+                className={`absolute left-0 top-1.5 h-0.5 w-5 bg-ink transition duration-300 ${
+                  open ? 'opacity-0' : 'opacity-100'
+                }`}
+              />
+              <span
+                className={`absolute left-0 top-3 h-0.5 w-5 bg-ink transition duration-300 ${
+                  open ? '-translate-y-1 -rotate-45' : ''
+                }`}
+              />
+            </span>
           </button>
         </div>
       </div>
-      {open ? (
-        <div className="mt-4 rounded-3xl border border-sand/50 bg-white/90 p-6 shadow-card lg:hidden">
+      <div
+        id="mobile-nav"
+        className={`overflow-hidden transition-all duration-300 lg:hidden ${
+          open
+            ? 'max-h-[520px] opacity-100'
+            : 'max-h-0 opacity-0 pointer-events-none'
+        }`}
+      >
+        <div className="mt-4 rounded-3xl border border-sand/50 bg-white/90 p-6 shadow-card">
           <div className="flex flex-col gap-4">
             {navLinks.map((item) => (
               <NavLink
@@ -119,12 +147,12 @@ function Navbar() {
             >
               {t('nav.cart')} ({cartCount})
             </NavLink>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col gap-2">
               <span className="text-xs uppercase tracking-[0.3em] text-cedar/70">
                 {t('nav.language')}
               </span>
               <select
-                className="rounded-full border border-sand/60 bg-white/80 px-3 py-2 text-xs uppercase tracking-[0.3em] text-cedar/80"
+                className="w-full rounded-full border border-sand/60 bg-white/80 px-3 py-2 text-xs uppercase tracking-[0.3em] text-cedar/80"
                 value={i18n.language}
                 onChange={(event) => i18n.changeLanguage(event.target.value)}
               >
@@ -135,7 +163,7 @@ function Navbar() {
             </div>
           </div>
         </div>
-      ) : null}
+      </div>
     </header>
   )
 }

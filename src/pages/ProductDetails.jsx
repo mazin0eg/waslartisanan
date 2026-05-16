@@ -66,12 +66,14 @@ function ProductDetails() {
           <img
             src={resolveImageUrl(product.image)}
             alt={product.title}
-            className="h-full w-full object-cover"
+            className="aspect-[4/3] w-full object-cover md:aspect-[5/4]"
           />
         </div>
         <div className="space-y-6">
           <span className="pill">{product.category}</span>
-          <h1 className="text-4xl font-display text-ink">{product.title}</h1>
+          <h1 className="text-3xl font-display text-ink md:text-4xl">
+            {product.title}
+          </h1>
           <p className="text-sm text-cedar/70">{product.description}</p>
           <p className="text-2xl font-semibold text-ink">
             {formatCurrency(product.price)}

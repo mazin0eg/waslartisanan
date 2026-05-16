@@ -42,7 +42,9 @@ function AdminProductForm() {
         setPreview(resolveImageUrl(data.image))
         setImageFile(null)
       } catch (err) {
-        console.error('Unable to load product', err)
+        if (import.meta.env.DEV) {
+          console.error('Unable to load product', err)
+        }
         toast.error('Unable to load product')
       }
     }
@@ -66,7 +68,9 @@ function AdminProductForm() {
       setImageFile(file)
       setPreview(URL.createObjectURL(file))
     } catch (err) {
-      console.error('Unable to read image file', err)
+      if (import.meta.env.DEV) {
+        console.error('Unable to read image file', err)
+      }
       toast.error('Unable to read image file')
     }
   }
@@ -122,7 +126,9 @@ function AdminProductForm() {
 
       navigate('/admin/products')
     } catch (err) {
-      console.error('Unable to save product', err)
+      if (import.meta.env.DEV) {
+        console.error('Unable to save product', err)
+      }
       toast.error('Unable to save product')
     } finally {
       setLoading(false)

@@ -34,7 +34,9 @@ function AdminTopbar({ onMenuClick = () => {} }) {
           <p className="text-xs uppercase tracking-[0.35em] text-cedar/60">
             {t('admin.admin')}
           </p>
-          <h1 className="text-2xl font-display text-ink">{title}</h1>
+          <h1 className="text-xl font-display text-ink md:text-2xl">
+            {title}
+          </h1>
         </div>
       </div>
       <div className="flex flex-wrap items-center gap-3">

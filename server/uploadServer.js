@@ -1,13 +1,20 @@
 import cors from 'cors'
 import express from 'express'
 import fs from 'fs'
+import helmet from 'helmet'
 import multer from 'multer'
 import path from 'path'
+import rateLimit from 'express-rate-limit'
 import { fileURLToPath } from 'url'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const uploadsDir = path.join(__dirname, '..', 'public', 'uploads')
+const maxFileSizeMb = Number(process.env.UPLOAD_MAX_FILE_SIZE_MB) || 2
+const allowedOrigins = (process.env.UPLOAD_ALLOWED_ORIGINS || '')
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean)
 
 fs.mkdirSync(uploadsDir, { recursive: true })
 
@@ -31,12 +38,35 @@ const fileFilter = (_req, file, cb) => {
 const upload = multer({
   storage,
   fileFilter,
-  limits: { fileSize: 2 * 1024 * 1024 },
+  limits: { fileSize: maxFileSizeMb * 1024 * 1024 },
 })
 
 const app = express()
-app.use(cors({ origin: true }))
+app.set('trust proxy', 1)
+app.use(
+  helmet({
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
+  }),
+)
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+        callback(null, true)
+        return
+      }
+      callback(new Error('CORS origin not allowed'))
+    },
+  }),
+)
+const uploadLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 60,
+  standardHeaders: true,
+  legacyHeaders: false,
+})
 app.use('/uploads', express.static(uploadsDir))
+app.use('/upload', uploadLimiter)
 
 app.post('/upload', (req, res) => {
   upload.single('image')(req, res, (err) => {
@@ -53,7 +83,16 @@ app.post('/upload', (req, res) => {
   })
 })
 
+app.use((err, _req, res, _next) => {
+  if (err?.message?.includes('CORS')) {
+    return res.status(403).json({ error: 'Origin not allowed' })
+  }
+  return res.status(500).json({ error: 'Server error' })
+})
+
 const port = process.env.UPLOAD_PORT || 3002
 app.listen(port, () => {
-  console.log(`Upload server running on http://localhost:${port}`)
+  if (process.env.NODE_ENV !== 'production') {
+    console.log(`Upload server running on http://localhost:${port}`)
+  }
 })
