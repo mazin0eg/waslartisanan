@@ -10,6 +10,7 @@ function AdminTopbar({ onMenuClick = () => {} }) {
   const titleMap = {
     '/admin': t('admin.sidebar.dashboard'),
     '/admin/products': t('admin.sidebar.products'),
+    '/admin/categories': t('admin.sidebar.categories'),
     '/admin/orders': t('admin.sidebar.orders'),
     '/admin/customers': t('admin.sidebar.customers'),
   }
@@ -18,6 +19,8 @@ function AdminTopbar({ onMenuClick = () => {} }) {
     titleMap[location.pathname] ||
     (location.pathname.startsWith('/admin/products')
       ? t('admin.sidebar.products')
+      : location.pathname.startsWith('/admin/categories')
+      ? t('admin.sidebar.categories')
       : t('admin.admin'))
 
   return (

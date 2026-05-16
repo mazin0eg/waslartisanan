@@ -5,13 +5,18 @@ import PageTransition from '../components/shared/PageTransition.jsx'
 import SectionHeading from '../components/shared/SectionHeading.jsx'
 import ProductGrid from '../components/product/ProductGrid.jsx'
 import { useProducts } from '../hooks/useProducts.js'
-import { categories } from '../data/categories.js'
+import { useCategories } from '../hooks/useCategories.js'
+import { categories as fallbackCategories } from '../data/categories.js'
 import { visuals } from '../data/visuals.js'
 
 function Home() {
   const { t } = useTranslation()
   const { products, loading } = useProducts()
+  const { categories: apiCategories } = useCategories()
   const featured = products.slice(0, 4)
+  const displayCategories = apiCategories.length
+    ? apiCategories.map((item) => item.name)
+    : fallbackCategories
   const categoryLabels = {
     Ceramics: t('categories.ceramics'),
     Textiles: t('categories.textiles'),
@@ -90,7 +95,7 @@ function Home() {
             description={t('home.categoriesDescription')}
           />
           <div className="flex flex-wrap gap-3">
-            {categories.map((item) => (
+            {displayCategories.map((item) => (
               <span
                 key={item}
                 className="rounded-full border border-sand/60 bg-white/80 px-4 py-2 text-xs uppercase tracking-[0.3em] text-cedar/70"

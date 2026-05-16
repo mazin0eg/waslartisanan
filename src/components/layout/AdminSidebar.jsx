@@ -6,6 +6,7 @@ function AdminSidebar({ isOpen, onClose = () => {} }) {
   const adminLinks = [
     { label: t('admin.sidebar.dashboard'), to: '/admin' },
     { label: t('admin.sidebar.products'), to: '/admin/products' },
+    { label: t('admin.sidebar.categories'), to: '/admin/categories' },
     { label: t('admin.sidebar.orders'), to: '/admin/orders' },
     { label: t('admin.sidebar.customers'), to: '/admin/customers' },
   ]

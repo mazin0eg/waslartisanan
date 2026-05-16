@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
 import PageTransition from '../components/shared/PageTransition.jsx'
@@ -12,6 +12,7 @@ function Login() {
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const setAdmin = useAuthStore((state) => state.setAdmin)
+  const setCustomer = useAuthStore((state) => state.setCustomer)
   const navigate = useNavigate()
 
   const handleSubmit = async (event) => {
@@ -23,30 +24,32 @@ function Login() {
 
     setLoading(true)
     try {
-      if (import.meta.env.DEV) {
-        console.info('Attempting admin login', { email })
-      }
-
       const users = await getUsers()
       if (import.meta.env.DEV) {
         console.info('Users loaded', { count: users.length })
       }
       const normalizedEmail = email.trim().toLowerCase()
-      const adminUser = users.find(
+      const matchedUser = users.find(
         (user) =>
-          user.role === 'admin' &&
           user.email?.toLowerCase() === normalizedEmail &&
           user.password === password,
       )
 
-      if (!adminUser) {
-        toast.error('Invalid admin credentials')
+      if (!matchedUser) {
+        toast.error('Invalid email or password')
         return
       }
 
-      setAdmin(adminUser)
-      toast.success('Welcome, admin')
-      navigate('/admin')
+      if (matchedUser.role === 'admin') {
+        setAdmin(matchedUser)
+        toast.success('Welcome, admin')
+        navigate('/admin')
+        return
+      }
+
+      setCustomer(matchedUser)
+      toast.success('Welcome back')
+      navigate('/profile')
     } catch (err) {
       if (import.meta.env.DEV) {
         console.error('Login failed', err)
@@ -91,7 +94,10 @@ function Login() {
           </button>
         </div>
         <p className="mt-6 text-sm text-cedar/70">
-          Admin access only.
+          {t('auth.noAccount')}{' '}
+          <Link to="/register" className="text-ink underline">
+            {t('auth.createOne')}
+          </Link>
         </p>
       </form>
     </PageTransition>

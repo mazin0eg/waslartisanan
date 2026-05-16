@@ -70,7 +70,7 @@ function ProductDetails() {
           />
         </div>
         <div className="space-y-6">
-          <span className="pill">{product.category}</span>
+          <span className="pill">{product.categoryName || product.category}</span>
           <h1 className="text-3xl font-display text-ink md:text-4xl">
             {product.title}
           </h1>

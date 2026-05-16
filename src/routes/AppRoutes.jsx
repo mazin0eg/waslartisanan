@@ -20,6 +20,7 @@ import AdminProducts from '../pages/admin/Products.jsx'
 import AdminProductForm from '../pages/admin/ProductForm.jsx'
 import AdminOrders from '../pages/admin/Orders.jsx'
 import AdminCustomers from '../pages/admin/Customers.jsx'
+import AdminCategories from '../pages/admin/Categories.jsx'
 import AdminRouteGuard from './AdminRouteGuard.jsx'
 
 function AppRoutes() {
@@ -55,6 +56,7 @@ function AppRoutes() {
             <Route path="products" element={<AdminProducts />} />
             <Route path="products/new" element={<AdminProductForm />} />
             <Route path="products/:id" element={<AdminProductForm />} />
+            <Route path="categories" element={<AdminCategories />} />
             <Route path="orders" element={<AdminOrders />} />
             <Route path="customers" element={<AdminCustomers />} />
             <Route path="*" element={<Navigate to="/admin" replace />} />

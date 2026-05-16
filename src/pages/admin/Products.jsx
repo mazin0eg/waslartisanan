@@ -60,7 +60,7 @@ function AdminProducts() {
     return products.filter(
       (product) =>
         product.title.toLowerCase().includes(term) ||
-        product.category.toLowerCase().includes(term),
+        (product.categoryName || product.category || '').toLowerCase().includes(term),
     )
   }, [products, search])
 
@@ -134,7 +134,9 @@ function AdminProducts() {
                     </p>
                   </div>
                 </div>
-                <p className="text-sm text-cedar/70">{product.category}</p>
+                <p className="text-sm text-cedar/70">
+                  {product.categoryName || product.category}
+                </p>
                 <p className="text-sm text-ink">
                   {formatCurrency(product.price)}
                 </p>

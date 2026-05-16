@@ -70,6 +70,9 @@ function Dashboard() {
           <Link to="/admin/products" className="primary-button">
             {t('admin.dashboard.manageProducts')}
           </Link>
+          <Link to="/admin/categories" className="ghost-button">
+            {t('admin.dashboard.manageCategories')}
+          </Link>
           <Link to="/admin/orders" className="ghost-button">
             {t('admin.dashboard.viewOrders')}
           </Link>

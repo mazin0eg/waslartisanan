@@ -17,7 +17,7 @@ function CartItem({ item }) {
       />
       <div className="flex-1">
         <p className="text-lg font-display text-ink">{item.title}</p>
-        <p className="text-sm text-cedar/70">{item.category}</p>
+        <p className="text-sm text-cedar/70">{item.categoryName || item.category}</p>
       </div>
       <div className="flex items-center gap-3">
         <button

@@ -26,7 +26,7 @@ function ProductCard({ product }) {
           loading="lazy"
         />
         <span className="absolute left-4 top-4 rounded-full bg-cream/90 px-3 py-1 text-xs uppercase tracking-[0.3em] text-cedar">
-          {product.category}
+          {product.categoryName || product.category}
         </span>
       </div>
       <div className="flex flex-1 flex-col p-5">

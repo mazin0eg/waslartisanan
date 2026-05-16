@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import PageTransition from '../../components/shared/PageTransition.jsx'
 import { createProduct, getProduct, updateProduct } from '../../services/products.js'
 import { uploadImage } from '../../services/uploads.js'
-import { categories } from '../../data/categories.js'
+import { useCategories } from '../../hooks/useCategories.js'
 import { resolveImageUrl } from '../../utils/resolveImageUrl.js'
 
 const emptyForm = {
@@ -13,7 +13,8 @@ const emptyForm = {
   description: '',
   price: '',
   image: '',
-  category: categories[0],
+  categoryId: '',
+  categoryName: '',
   stock: '',
 }
 
@@ -25,18 +26,40 @@ function AdminProductForm() {
   const [imageFile, setImageFile] = useState(null)
   const [loading, setLoading] = useState(false)
   const [preview, setPreview] = useState('')
+  const { categories, loading: categoriesLoading } = useCategories()
+
+  useEffect(() => {
+    if (form.categoryId || !categories.length) return
+    const matched = form.categoryName
+      ? categories.find((item) => item.name === form.categoryName)
+      : null
+    const next = matched || categories[0]
+    if (!next) return
+    setForm((prev) => ({
+      ...prev,
+      categoryId: String(next.id),
+      categoryName: next.name,
+    }))
+  }, [categories, form.categoryId, form.categoryName])
 
   useEffect(() => {
     if (!id) return
     const load = async () => {
       try {
         const data = await getProduct(id)
+        const categoryName = data.categoryName || data.category || ''
+        const categoryId = data.categoryId
+          ? String(data.categoryId)
+          : (categories.find((item) => item.name === categoryName)?.id
+              ? String(categories.find((item) => item.name === categoryName)?.id)
+              : '')
         setForm({
           title: data.title,
           description: data.description,
           price: data.price,
           image: data.image,
-          category: data.category,
+          categoryId,
+          categoryName,
           stock: data.stock,
         })
         setPreview(resolveImageUrl(data.image))
@@ -50,10 +73,21 @@ function AdminProductForm() {
     }
 
     load()
-  }, [id])
+  }, [id, categories])
 
   const handleChange = (event) => {
     const { name, value } = event.target
+    if (name === 'categoryId') {
+      const selected = categories.find(
+        (item) => String(item.id) === String(value),
+      )
+      setForm((prev) => ({
+        ...prev,
+        categoryId: value,
+        categoryName: selected?.name || prev.categoryName,
+      }))
+      return
+    }
     setForm((prev) => ({ ...prev, [name]: value }))
   }
 
@@ -82,9 +116,14 @@ function AdminProductForm() {
       !form.description ||
       form.price === '' ||
       form.stock === '' ||
-      !form.category
+      !form.categoryId
     ) {
       toast.error('Please fill in all required fields')
+      return
+    }
+
+    if (!categories.length) {
+      toast.error('Please create a category before adding products')
       return
     }
 
@@ -102,6 +141,15 @@ function AdminProductForm() {
 
     setLoading(true)
     let imagePath = form.image
+    const selectedCategory = categories.find(
+      (item) => String(item.id) === String(form.categoryId),
+    )
+
+    if (!selectedCategory) {
+      toast.error('Please choose a valid category')
+      setLoading(false)
+      return
+    }
 
     try {
       if (imageFile) {
@@ -111,6 +159,9 @@ function AdminProductForm() {
 
       const payload = {
         ...form,
+        categoryId: String(selectedCategory.id),
+        categoryName: selectedCategory.name,
+        category: selectedCategory.name,
         image: imagePath,
         price,
         stock,
@@ -207,16 +258,32 @@ function AdminProductForm() {
           </div>
           <select
             className="input-field"
-            name="category"
-            value={form.category}
+            name="categoryId"
+            value={form.categoryId}
             onChange={handleChange}
+            disabled={categoriesLoading || !categories.length}
           >
-            {categories.map((item) => (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            ))}
+            {categoriesLoading ? (
+              <option value="">Loading categories...</option>
+            ) : categories.length ? (
+              categories.map((item) => (
+                <option key={item.id} value={String(item.id)}>
+                  {item.name}
+                </option>
+              ))
+            ) : (
+              <option value="">No categories available</option>
+            )}
           </select>
+          {!categoriesLoading && !categories.length ? (
+            <p className="text-xs text-cedar/70">
+              Create categories in the{' '}
+              <Link to="/admin/categories" className="text-ink underline">
+                categories panel
+              </Link>{' '}
+              before adding products.
+            </p>
+          ) : null}
           <button type="submit" className="primary-button" disabled={loading}>
             {loading ? t('admin.productForm.saving') : t('admin.productForm.save')}
           </button>

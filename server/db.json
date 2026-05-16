@@ -1,5 +1,7 @@
 {
   "products": [],
+  "categories": [],
+  "orders": [],
   "users": [
     {
       "id": "1",
@@ -7,44 +9,14 @@
       "email": "admin@waslartisan.com",
       "password": "admin123",
       "role": "admin"
-    }
-  ],
-  "orders": [
+    },
     {
-      "customerName": "mazinr",
-      "email": "mazin.zougui@gmail.com",
-      "phone": "0609061057",
-      "address": "BLOC 3 NR 380 HAY AZROU AIT ME, 2",
-      "city": "AGADIR",
-      "notes": "",
-      "items": [
-        {
-          "title": "test",
-          "description": "test",
-          "price": 10,
-          "image": "/uploads/product-1778946772319-43409658.png",
-          "category": "Leather",
-          "stock": 10,
-          "id": "zbaL4-WA8so",
-          "quantity": 1
-        }
-      ],
-      "products": [
-        {
-          "title": "test",
-          "description": "test",
-          "price": 10,
-          "image": "/uploads/product-1778946772319-43409658.png",
-          "category": "Leather",
-          "stock": 10,
-          "id": "zbaL4-WA8so",
-          "quantity": 1
-        }
-      ],
-      "total": 10,
-      "status": "delivered",
-      "createdAt": "2026-05-16T15:53:39.503Z",
-      "id": "bgB5WypBHd0"
+      "name": "test",
+      "email": "test@gmail.com",
+      "password": "test@gmail.com",
+      "phone": "06060606",
+      "role": "customer",
+      "id": "D9tLbIW3o98"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

@@ -8,14 +8,6 @@ function ProductFilters({
   onCategory,
 }) {
   const { t } = useTranslation()
-  const categoryLabels = {
-    Ceramics: t('categories.ceramics'),
-    Textiles: t('categories.textiles'),
-    Woodwork: t('categories.woodwork'),
-    Leather: t('categories.leather'),
-    Metalwork: t('categories.metalwork'),
-    'Home Rituals': t('categories.homeRituals'),
-  }
 
   return (
     <div className="flex flex-col gap-4 rounded-3xl border border-sand/40 bg-white/80 p-5 shadow-soft md:flex-row md:items-center md:justify-between">
@@ -34,8 +26,8 @@ function ProductFilters({
       >
         <option value="All">{t('products.allCategories')}</option>
         {categories.map((item) => (
-          <option key={item} value={item}>
-            {categoryLabels[item] || item}
+          <option key={item.id} value={String(item.id)}>
+            {item.name}
           </option>
         ))}
       </select>
