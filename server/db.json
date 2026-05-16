@@ -1,0 +1,158 @@
+{
+  "products": [
+    {
+      "title": "Atlas Cedar Serving Tray",
+      "description": "Cedar wood tray carved and sealed by hand, finished with a matte natural oil.",
+      "price": 640,
+      "image": "/uploads/product-1778937019888-746930981.png",
+      "category": "Woodwork",
+      "stock": 8,
+      "id": "2"
+    },
+    {
+      "id": "3",
+      "title": "Kasbah Loom Cushion",
+      "description": "Woven cushion in neutral clay and cream patterns, filled with soft wool.",
+      "price": 520,
+      "image": "/images/loom-cushion.svg",
+      "category": "Textiles",
+      "stock": 18
+    },
+    {
+      "id": "4",
+      "title": "Marrakech Leather Journal",
+      "description": "Hand-stitched leather journal with minimalist embossing and linen pages.",
+      "price": 280,
+      "image": "/images/leather-journal.svg",
+      "category": "Leather",
+      "stock": 25
+    },
+    {
+      "id": "5",
+      "title": "Medina Brass Lantern",
+      "description": "Brass lantern with geometric cutouts, casting soft ambient patterns.",
+      "price": 720,
+      "image": "/images/brass-lantern.svg",
+      "category": "Metalwork",
+      "stock": 10
+    },
+    {
+      "id": "6",
+      "title": "Atlas Souk Wall Weave",
+      "description": "Handwoven wall weave inspired by Moroccan souks, layered with earthy textures.",
+      "price": 840,
+      "image": "/images/wall-weave.svg",
+      "category": "Textiles",
+      "stock": 7
+    },
+    {
+      "id": "7",
+      "title": "Rif Ritual Incense Bowl",
+      "description": "Hand-formed ceramic bowl for incense and morning rituals.",
+      "price": 190,
+      "image": "/images/incense-bowl.svg",
+      "category": "Home Rituals",
+      "stock": 30
+    },
+    {
+      "id": "8",
+      "title": "Oasis Leather Ottoman",
+      "description": "Soft leather ottoman stitched by hand, filled with natural fibers.",
+      "price": 1380,
+      "image": "/images/leather-ottoman.svg",
+      "category": "Leather",
+      "stock": 4
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "Admin",
+      "email": "admin@waslartisan.com",
+      "password": "admin123",
+      "role": "admin",
+      "phone": "0600000000"
+    },
+    {
+      "id": "2",
+      "name": "Amina El Idrissi",
+      "email": "amina@waslartisan.com",
+      "password": "customer123",
+      "phone": "+212 600 123 456",
+      "role": "customer"
+    },
+    {
+      "id": "3",
+      "name": "Kenji Watanabe",
+      "email": "kenji@waslartisan.com",
+      "password": "customer123",
+      "phone": "+81 80 2345 6789",
+      "role": "customer"
+    },
+    {
+      "id": "4",
+      "name": "Sana Rahmani",
+      "email": "sana@waslartisan.com",
+      "password": "customer123",
+      "phone": "+212 655 987 432",
+      "role": "customer"
+    },
+    {
+      "name": "Mazin eg",
+      "email": "mazin.zougui@gmail.com",
+      "password": "mazin.zougui@gmail.com",
+      "phone": "0609061057",
+      "role": "customer",
+      "id": "i_xovHa1ukU"
+    }
+  ],
+  "orders": [
+    {
+      "id": "1",
+      "customerName": "Amina El Idrissi",
+      "email": "amina@waslartisan.com",
+      "phone": "+212 600 123 456",
+      "address": "Villa 14, Palmeraie District",
+      "city": "Marrakech",
+      "notes": "Leave with the front desk.",
+      "items": [
+        {
+          "id": 1,
+          "title": "Sahara Clay Tea Set",
+          "price": 950,
+          "quantity": 1
+        },
+        {
+          "id": 2,
+          "title": "Atlas Cedar Serving Tray",
+          "price": 640,
+          "quantity": 1
+        }
+      ],
+      "total": 1590,
+      "status": "Processing",
+      "createdAt": "2026-05-10T09:24:00.000Z"
+    },
+    {
+      "id": "2",
+      "customerName": "Kenji Watanabe",
+      "email": "kenji@waslartisan.com",
+      "phone": "+81 80 2345 6789",
+      "address": "2-12-4 Jingumae",
+      "city": "Tokyo",
+      "notes": "Call on arrival.",
+      "items": [
+        {
+          "id": 3,
+          "title": "Kasbah Loom Cushion",
+          "price": 520,
+          "quantity": 2
+        }
+      ],
+      "total": 1040,
+      "status": "Shipped",
+      "createdAt": "2026-05-11T14:12:00.000Z"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

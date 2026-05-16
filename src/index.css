@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  * {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-linen text-ink font-sans;
+  }
+
+  html[dir='rtl'] body {
+    direction: rtl;
+  }
+
+  html[dir='rtl'] .input-field {
+    text-align: right;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-ink;
+  }
+}
+
+@layer components {
+  .page-shell {
+    @apply min-h-screen bg-paper-texture;
+  }
+
+  .section-padding {
+    @apply px-5 md:px-10 lg:px-16;
+  }
+
+  .surface {
+    @apply bg-white/80 backdrop-blur-sm border border-sand/40 shadow-soft;
+  }
+
+  .pill {
+    @apply inline-flex items-center rounded-full border border-sand/60 px-3 py-1 text-xs uppercase tracking-[0.2em] text-cedar;
+  }
+
+  .input-field {
+    @apply w-full rounded-2xl border border-sand/60 bg-white/80 px-4 py-3 text-sm text-ink placeholder:text-cedar/60 shadow-sm focus:border-clay focus:outline-none focus:ring-2 focus:ring-clay/20;
+  }
+
+  .primary-button {
+    @apply inline-flex items-center justify-center rounded-full bg-ink px-6 py-3 text-sm font-medium uppercase tracking-[0.2em] text-cream shadow-card transition hover:-translate-y-0.5 hover:bg-night;
+  }
+
+  .ghost-button {
+    @apply inline-flex items-center justify-center rounded-full border border-ink/20 px-6 py-3 text-sm font-medium uppercase tracking-[0.2em] text-ink transition hover:border-ink/40 hover:bg-cream;
+  }
+}
