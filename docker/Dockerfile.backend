@@ -2,13 +2,12 @@ FROM node:20-alpine
 
 WORKDIR /app
 COPY package*.json ./
-RUN npm install --omit=dev
+RUN npm install
 
 COPY server ./server
 COPY public ./public
 
 ENV NODE_ENV=production
-ENV API_PORT=4000
 
-EXPOSE 4000
-CMD ["node", "server/apiServer.js"]
+EXPOSE 3001 3002
+CMD ["npm", "run", "server"]

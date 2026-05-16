@@ -31,7 +31,6 @@ cd /var/www/waslartisan
 ## 3) Configure environment
 
 Create `.env` in the project root using [deploy/docker.env.example](deploy/docker.env.example).
-Set a strong `JWT_SECRET`.
 
 ## 4) Build and run containers
 
@@ -65,12 +64,12 @@ certbot --nginx -d waslartisan.com -d www.waslartisan.com
 ## 7) Verify
 
 - https://waslartisan.com loads the frontend.
-- https://waslartisan.com/api/health returns `{ "status": "ok" }`.
+- https://waslartisan.com/api/users returns the admin user.
 - Admin login works and product CRUD functions.
 - Uploads save to `/uploads` and render on product cards.
 
 ## Notes
 
-- Backend data persists in the `db-data` Docker volume.
-- Uploaded images persist in the `uploads-data` Docker volume.
+- Backend data persists in `server/db.json`.
+- Uploaded images persist in `public/uploads`.
 - HTTP is redirected to HTTPS by Nginx.
