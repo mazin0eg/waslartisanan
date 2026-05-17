@@ -7,11 +7,18 @@ services:
       context: .
       dockerfile: docker/Dockerfile.backend
     env_file: ./.env
-    command: ["npm", "run", "server", "--", "--host", "0.0.0.0", "--port", "3001"]
+    command:
+      - sh
+      - -c
+      - |
+        if [ ! -f /app/data/db.json ]; then
+          cp /app/server/db.json /app/data/db.json
+        fi
+        npx json-server --watch /app/data/db.json --host 0.0.0.0 --port 3001
     environment:
       NODE_ENV: production
     volumes:
-      - ./server/db.json:/app/server/db.json
+      - db-data:/app/data
     ports:
       - "3001:3001"
 
@@ -45,3 +52,6 @@ services:
       - uploads
     ports:
       - "3000:80"
+
+volumes:
+  db-data:
